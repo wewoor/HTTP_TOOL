@@ -4,35 +4,93 @@
 		<title>HTTP请求模拟工具</title>
 		<link rel="stylesheet" href="stylesheet/main.css"/>
 		<link rel="stylesheet" type="text/css" href="javascript/lib/bootstrap/css/bootstrap.css"/>
-		<script type="text/javascript" src="javascript/lib/jquery/jquery.js"></script>
-		<script type="text/javascript" src="javascript/lib/angular/angular.js"></script>
-		<script type="text/javascript" src="javascript/lib/bootstrap/js/bootstrap.js"></script>
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<script type="text/javascript" src="javascript/lib/bootstrap/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="javascript/app/main.js"></script>
 	</head>	
 	<body>
-		<div id="warpper">			
-			<header>
-				<h1>HTTP Request Tool V1.0</h1>
-			</header>		
-			<section>
+		<header>
+			HTTP Request Tool V1.0
+		</header>		
+		<div id="center">
+			<section id="sec1">
 				<form id="form1">
-					<p>
-						<button class="btn">URL请求地址：</button>
-						<input type="text" name="reqUrl"/>
-					</p>
-					<p>
-						<button class="btn">Body数据：</button>
-						<textarea type="text" name="bodyData"> </textarea>
-					</p>
-					<p>
-						<button class="btn">URL请求地址：</button>
-						<input type="text" name="reqUrl" />
-					</p>
+					<table>
+						<tr>
+							<td>Request URL：</td>
+							<td class="td2"><input type="text" id="reqURL" name="reqUrl"/></td>							
+						</tr>
+						<!-----header添加----->
+						<tr>
+							<td>Request Headers：</td>
+							<td class="td2">
+								<input type="text" id="head_key" placeholder="key" name="headerKey"/>
+								<input type="text" placeholder="value" name="headerValue"/>
+								<button class="btn">Add</button>
+							</td>
+						</tr>
+						<!-----show header parameters--->
+						<tr>
+							<td>Current headers：</td>
+							<td class="td2">
+								<ul>
+									<li>ContentType：utf-8<i class="icon-remove op-remove" title="remove this header"></i></li>
+								</ul>
+							</td>
+						</tr>
+	
+						<!---------body数据--->
+						<tr>
+							<td>Body：</td>
+							<td class="td2"><textarea class="data_body" type="text" name="body" > </textarea></td>
+						</tr>
+						
+						<tr>
+							<td>
+							</td> 
+							<td class="td2">
+								<div class="btn-group">
+							   	  <button class="btn">Method</button>
+								  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+								    <span id="choice_method">GET</span>
+								    <span class="caret"></span>
+								  </a>
+								  <ul class="dropdown-menu">
+								    <!-- dropdown menu links -->
+								    <li><a href="#">GET</a></li>
+								    <li><a href="#">POST</a></li>
+								    <li><a href="#">PUT</a></li>
+								    <li><a href="#">DELETE</a></li>
+								  </ul>
+								</div>								
+								<button class="btn">Send</button>
+							</td>
+						</tr>
+					</table>
 				</form>
 			</section>
-			<footer>
-				<h1>header</h1>
-			</footer>
+			<section id="sec2">
+				<table>
+					<tr><td><h3>Results:</h3></td><td></td></tr>
+					<tr>
+						<td>Status:</td>
+						<td class="td2"><span class="underline"></span></td>
+					</tr>
+					<tr><td>Return:</td>
+						<td><textarea class="data_body" type="text"> </textarea></td>
+					</tr>
+					<tr><td>Header:</td>
+						<td class="td2">
+							<ul>
+								<li>test</li>
+							</ul>
+						</td>
+					</tr>
+				</table>
+			</section>
 		</div>
+		<footer>
+			<p><a href="#">博客</a>|<a href="#">微博</a>|<a href="#">Github</a></p>
+		</footer>
 	</body>
 </html>

@@ -11,7 +11,7 @@
 package com.httptool.service;
 
 import com.httptool.bean.HttpRequestEntity;
-import com.httptool.utils.HttpServiceSender;
+import com.httptool.utils.UtilHttpRequest;
 
 /**
  * <一句话功能简述>
@@ -31,30 +31,29 @@ public class HttpToolService {
      * @return
      * @see [类、类#方法、类#成员]
      */
-    public String[] doRequest(HttpRequestEntity request){
+    public String[] doRequest(HttpRequestEntity requestEntity){
         
-        String[] result = new String[2];
+        String[] result = new String[3];
               
-        //GET       
-        if(request.getMethod().equals("GET")){              
-            result = HttpServiceSender.doGet(request.getUrl());
-            
+       //GET       
+        if(requestEntity.getMethod().equals("GET")){              
+            result = UtilHttpRequest.doGet(requestEntity);
+            return result;           
         //POST         
-        } else if(request.getMethod().equals("POST")){            
-            result = HttpServiceSender.doPost(request.getUrl(), 
-                request.getBodyString());
-      
+        } else if(requestEntity.getMethod().equals("POST")){            
+            result = UtilHttpRequest.doPost(requestEntity);
+            return result;    
         //PUT         
-        } else if(request.getMethod().equals("PUT")){            
-            result = HttpServiceSender.doPUT(request.getUrl(), 
-                request.getBodyString());
-        
+        } else if(requestEntity.getMethod().equals("PUT")){            
+            result = UtilHttpRequest.doPUT(requestEntity);
+            return result;     
         //Delete    
-        } else if(request.getMethod().endsWith("DELETE")){                      
-            result = HttpServiceSender.doDelete(request.getUrl());
+        } else if(requestEntity.getMethod().endsWith("DELETE")){                      
+            result = UtilHttpRequest.doDelete(requestEntity);
+            return result;
         }
         
-        return result;
+        return null;
     }
     
 }

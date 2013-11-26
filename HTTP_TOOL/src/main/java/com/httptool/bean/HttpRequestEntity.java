@@ -1,5 +1,7 @@
 package com.httptool.bean;
 
+import org.apache.commons.httpclient.Header;
+
 /**
  * 
  * This object includes request URL,request body string,
@@ -21,6 +23,19 @@ public class HttpRequestEntity {
     
     //request body String
     private String bodyString;
+    
+    //request header
+    private Header header;
+    
+    /**
+     * defautl constructor
+     */
+    public HttpRequestEntity(String url, String method, String bodyString , Header header) {
+        this.url = url;
+        this.method = method;
+        this.bodyString = bodyString;
+        this.header = header;
+    }
 
     public String getUrl() {
         return url;
@@ -45,5 +60,13 @@ public class HttpRequestEntity {
     public void setBodyString(String bodyString) {
         this.bodyString = bodyString;
     }
-     
+
+    public Header getHeader() {
+        return header;
+    }
+
+    public void setHeader(Header header) {
+        this.header = header;
+    }
+   
 }

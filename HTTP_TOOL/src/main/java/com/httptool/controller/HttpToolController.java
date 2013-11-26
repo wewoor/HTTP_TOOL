@@ -3,7 +3,6 @@ package com.httptool.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,13 +15,11 @@ import com.httptool.service.HttpToolService;
 import com.httptool.utils.JSONUtils;
 
 /**
- * <一句话功能简述>
- * <功能详细描述>
+ *
  * 
  * @author  Ziv
- * @version  [版本号, 2013-10-21]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
+ * @version  [1.0, 2013-10-21]
+ * 
  */
 @Controller
 public class HttpToolController {
@@ -49,10 +46,10 @@ public class HttpToolController {
         
         try {
             
-            //将参数转换bean
+            //convert to HttpRequestEntity
             HttpRequestEntity params = (HttpRequestEntity)JSONUtils.String2Object(bodyString, HttpRequestEntity.class);
             
-            //发送请求
+            //do request
             HttpToolService service = new HttpToolService();       
             result = service.doRequest(params);
             
