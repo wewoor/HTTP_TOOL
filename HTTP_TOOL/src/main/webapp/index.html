@@ -6,7 +6,7 @@
 		<link rel="stylesheet" type="text/css" href="javascript/lib/bootstrap/css/bootstrap.css"/>
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
 		<script type="text/javascript" src="javascript/lib/bootstrap/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="javascript/app/main.js"></script>
+		<script type="text/javascript" src="javascript/app/main.js" charset="utf-8"></script>
 	</head>	
 	<body>
 		<header>
@@ -14,35 +14,26 @@
 		</header>		
 		<div id="center">
 			<section id="sec1">
-				<form id="form1">
-					<table>
+					<table style="margin-top: 20px;">
 						<tr>
 							<td>Request URL：</td>
-							<td class="td2"><input type="text" id="reqURL" name="reqUrl"/></td>							
+							<td class="td2">
+								<input type="text" placeholder="request url" id="reqURL" name="reqUrl"/>
+								<label>注意：请求URL的格式:http://www.××××.com</label>
+							</td>							
 						</tr>
 						<!-----header添加----->
 						<tr>
 							<td>Request Headers：</td>
 							<td class="td2">
-								<input type="text" id="head_key" placeholder="key" name="headerKey"/>
-								<input type="text" placeholder="value" name="headerValue"/>
-								<button class="btn">Add</button>
+								<textarea class="test" id="req_header"> </textarea>
+								<label>注意：添加头部信息新格式:key=value;key1=value2;....</label>
 							</td>
 						</tr>
-						<!-----show header parameters--->
-						<tr>
-							<td>Current headers：</td>
-							<td class="td2">
-								<ul>
-									<li>ContentType：utf-8<i class="icon-remove op-remove" title="remove this header"></i></li>
-								</ul>
-							</td>
-						</tr>
-	
 						<!---------body数据--->
 						<tr>
 							<td>Body：</td>
-							<td class="td2"><textarea class="data_body" type="text" name="body" > </textarea></td>
+							<td class="td2"><textarea class="data_body" id="req_body" type="text" name="body"> </textarea></td>
 						</tr>
 						
 						<tr>
@@ -55,42 +46,41 @@
 								    <span id="choice_method">GET</span>
 								    <span class="caret"></span>
 								  </a>
-								  <ul class="dropdown-menu">
+								  <ul class="dropdown-menu" id="req_method">
 								    <!-- dropdown menu links -->
-								    <li><a href="#">GET</a></li>
-								    <li><a href="#">POST</a></li>
-								    <li><a href="#">PUT</a></li>
-								    <li><a href="#">DELETE</a></li>
+								    <li><a href="javascript:;">GET</a></li>
+								    <li><a href="javascript:;">POST</a></li>
+								    <li><a href="javascript:;">PUT</a></li>
+								    <li><a href="javascript:;">DELETE</a></li>
 								  </ul>
 								</div>								
-								<button class="btn">Send</button>
+								<button class="btn" id="btn_send">Send</button>
 							</td>
 						</tr>
 					</table>
-				</form>
 			</section>
 			<section id="sec2">
 				<table>
-					<tr><td><h3>Results:</h3></td><td></td></tr>
+					<tr><td><h3>Results：</h3></td><td> </td></tr>
 					<tr>
-						<td>Status:</td>
-						<td class="td2"><span class="underline"></span></td>
+						<td>Status Code：</td>
+						<td class="td2"><input style="text-indent:5px;" id="st_code" readonly/></td>
 					</tr>
-					<tr><td>Return:</td>
-						<td><textarea class="data_body" type="text"> </textarea></td>
+					<tr><td>Return Body：</td>
+						<td><div id="resp_return"  class="data_body"> </div></td>
 					</tr>
-					<tr><td>Header:</td>
+<!-- 					<tr><td>Header:</td>
 						<td class="td2">
-							<ul>
-								<li>test</li>
+							<ul id="resp_header">
+								
 							</ul>
 						</td>
-					</tr>
+					</tr> -->
 				</table>
 			</section>
 		</div>
 		<footer>
-			<p><a href="#">博客</a>|<a href="#">微博</a>|<a href="#">Github</a></p>
+			<p><a href="#">博客</a>|<a href="#">微博</a>|<a href="#">Github</a>|<a href="#">QQ:191879617</a></p>
 		</footer>
 	</body>
 </html>

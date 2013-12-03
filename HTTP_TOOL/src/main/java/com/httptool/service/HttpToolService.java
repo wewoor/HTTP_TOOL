@@ -10,46 +10,59 @@
  */
 package com.httptool.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.httpclient.Header;
+
 import com.httptool.bean.HttpRequestEntity;
 import com.httptool.utils.UtilHttpRequest;
 
 /**
- * <一句话功能简述>
- * <功能详细描述>
- * 
+ * The Http request service
  * @author  Ziv
- * @version  [版本号, 2013-10-21]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
+ * @version  [v1.0, 2013-10-21]
  */
 public class HttpToolService {
     
     /**
      * 
-     * <一句话功能简述>
-     * <功能详细描述>
+     * Send http request service
+     * @param requestEntity
      * @return
-     * @see [类、类#方法、类#成员]
      */
-    public String[] doRequest(HttpRequestEntity requestEntity){
+    public Map<String, Object> doRequest(HttpRequestEntity requestEntity) {
         
-        String[] result = new String[3];
-              
-       //GET       
-        if(requestEntity.getMethod().equals("GET")){              
-            result = UtilHttpRequest.doGet(requestEntity);
+        Map<String, Object> result = new HashMap<String, Object>();
+        Header header = null;
+        
+        if (!(requestEntity.getHeader().trim().equals(""))) {
+            //Analyse the header String
+            header = new Header();
+            String [] str = requestEntity.getHeader().trim().split(";");
+            for(int i = 0 ; i < str.length ; i ++) {
+                String [] temp = str[i].split("=");
+                header.setName(temp[0]);
+                header.setValue(temp[1]);
+            } 
+        }
+        
+        if (requestEntity.getMethod().equals("GET")) {//GET               
+            result = UtilHttpRequest.doGet(requestEntity.getUrl(), header);
             return result;           
-        //POST         
-        } else if(requestEntity.getMethod().equals("POST")){            
-            result = UtilHttpRequest.doPost(requestEntity);
+              
+        } else if (requestEntity.getMethod().equals("POST")) {//POST               
+            result = UtilHttpRequest.doPost(requestEntity.getUrl(), requestEntity.getBody().trim(), 
+                header);
             return result;    
-        //PUT         
-        } else if(requestEntity.getMethod().equals("PUT")){            
-            result = UtilHttpRequest.doPUT(requestEntity);
+        
+        } else if (requestEntity.getMethod().equals("PUT")) {//PUT                   
+            result = UtilHttpRequest.doPUT(requestEntity.getUrl(), requestEntity.getBody().trim(), 
+                header);
             return result;     
-        //Delete    
-        } else if(requestEntity.getMethod().endsWith("DELETE")){                      
-            result = UtilHttpRequest.doDelete(requestEntity);
+        
+        } else if (requestEntity.getMethod().endsWith("DELETE")) {//Delete                         
+            result = UtilHttpRequest.doDelete(requestEntity.getUrl(), header);
             return result;
         }
         

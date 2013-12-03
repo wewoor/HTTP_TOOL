@@ -50,7 +50,6 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>springMvc</servlet-name>
-		<url-pattern>*.do</url-pattern>
+		<url-pattern>/service/*</url-pattern>
 	</servlet-mapping>
-	
 </web-app>

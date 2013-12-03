@@ -1,18 +1,20 @@
 package com.httptool.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.httptool.bean.HttpRequestEntity;
+import com.httptool.constant.HttpResponse;
 import com.httptool.service.HttpToolService;
-import com.httptool.utils.JSONUtils;
 
 /**
  *
@@ -27,40 +29,41 @@ public class HttpToolController {
     /**
      * 
      * This function is main entrance of the tool.
-     * all the Ajax request will be get data by this. 
-     * 
-     * @param bodyString
-     * @param reqUrl
+     * all the Ajax request will be get data by this.
+     * @param url
+     * @param method
      * @param header
+     * @param bodyString
      * @param response
      * @param request
      * @return
-     * @see [类、类#方法、类#成员]
      */
-    @RequestMapping(method = RequestMethod.POST, value = "/do")
-    public ModelAndView HttpToolMain(@RequestBody String bodyString,
-        @PathVariable String method,@PathVariable String header
-        ,HttpServletResponse response,HttpServletRequest request){
-        
-        String[] result = new String[2];
-        
-        try {
+    @RequestMapping(method = RequestMethod.POST, value = "/doRequest")
+    @ResponseBody
+    public Map<String, Object> HttpToolMain(HttpServletResponse response,HttpServletRequest request) {
+         
+        Map<String, Object> data = new HashMap<String, Object>();
+        try {          
+            //Convert to HttpRequestEntityn
+            HttpRequestEntity entity = new HttpRequestEntity();
+            entity.setUrl(request.getParameter("url"));
+            entity.setMethod(request.getParameter("method"));
+            entity.setBody(request.getParameter("body"));
+            entity.setHeader(request.getParameter("header"));
             
-            //convert to HttpRequestEntity
-            HttpRequestEntity params = (HttpRequestEntity)JSONUtils.String2Object(bodyString, HttpRequestEntity.class);
+            //Do request
+            HttpToolService httpToolService = new HttpToolService();
             
-            //do request
-            HttpToolService service = new HttpToolService();       
-            result = service.doRequest(params);
-            
-            //return json data
-            response.getWriter().print(result);
+            //Return json data
+            data = httpToolService.doRequest(entity);
             
         } catch(Exception e){
-           System.out.println(e.getMessage());
+            data.put(HttpResponse.STATUS, "The server inner error");
+            data.put("exception",e.getMessage());
+            LoggerFactory.getLogger(HttpToolController.class).error("HttpToolController.HttpToolMain()" +
+          		"has error", e.getMessage());
         }
-        
-        return null;
+        return data;
     }
 
 }
